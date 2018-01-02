@@ -1,0 +1,30 @@
+version: "3.4"
+
+services:
+  web:
+    image: sonatype/nexus3:3.7.0
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.ui.port=8081"
+        - "traefik.ui.frontend.entryPoints=https"
+        - "traefik.ui.frontend.rule=Host:nexus.s.dnam.dk"
+        - "traefik.docker.port=5001"
+        - "traefik.docker.frontend.entryPoints=https"
+        - "traefik.docker.frontend.rule=Host:registry.s.dnam.dk"
+      resources:
+        limits:
+          memory: 512m
+    volumes:
+      - nexus-data:/nexus-data
+    networks:
+      - proxy-net
+
+networks:
+  proxy-net:
+    external:
+      name: proxy-net
+
+volumes:
+  nexus-data:
+
