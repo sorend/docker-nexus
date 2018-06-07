@@ -2,7 +2,7 @@ version: "3.4"
 
 services:
   web:
-    image: sonatype/nexus3:3.9.0
+    image: sonatype/nexus3:3.12.0
     deploy:
       labels:
         - "traefik.enable=true"
